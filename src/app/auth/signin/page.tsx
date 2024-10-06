@@ -57,105 +57,103 @@ export default function SignIn() {
   });
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
-    // try {
-    //     const result = await handleCredentialsSignin(values);
-    //     if (result?.message) {
-    //         setGlobalError(result.message);
-    //     }
-    // } catch (error) {
-    //     console.log("An unexpected error occurred. Please try again.");
-    // }
+    try {
+      const result = await handleCredentialsSignin(values);
+      if (result?.message) {
+        setGlobalError(result.message);
+      }
+    } catch (error) {
+      console.log("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
-    // <div className="flex min-h-screen flex-col items-center justify-center p-24">
-    //   <Card className="w-full max-w-md">
-    //     <CardHeader>
-    //       <CardTitle className="text-3xl font-bold text-center text-gray-800">
-    //         Welcome Back
-    //       </CardTitle>
-    //     </CardHeader>
-    //     <CardContent>
-    //       {globalError && <ErrorMessage error={globalError} />}
-    //       <Form {...form}>
-    //         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-    //           <FormField
-    //             control={form.control}
-    //             name="email"
-    //             render={({ field }) => (
-    //               <FormItem>
-    //                 <FormLabel>Email</FormLabel>
-    //                 <FormControl>
-    //                   <Input
-    //                     type="email"
-    //                     placeholder="Enter your email address"
-    //                     autoComplete="off"
-    //                     {...field}
-    //                   />
-    //                 </FormControl>
-    //                 <FormMessage />
-    //               </FormItem>
-    //             )}
-    //           />
+    <div className="flex min-h-screen flex-col items-center justify-center p-24">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-center text-gray-800">
+            Welcome Back
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {globalError && <ErrorMessage error={globalError} />}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Enter your email address"
+                        autoComplete="off"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-    //           <FormField
-    //             control={form.control}
-    //             name="password"
-    //             render={({ field }) => (
-    //               <FormItem>
-    //                 <FormLabel>Password</FormLabel>
-    //                 <FormControl>
-    //                   <Input
-    //                     type="password"
-    //                     placeholder="Enter password"
-    //                     {...field}
-    //                   />
-    //                 </FormControl>
-    //                 <FormMessage />
-    //               </FormItem>
-    //             )}
-    //           />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Enter password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-    //           {/* Submit button will go here */}
-    //           <LoadingButton pending={form.formState.isSubmitting}>
-    //             Sign in
-    //           </LoadingButton>
-    //           <Button
-    //             className="w-full"
-    //             onClick={async () => {
-    //               await signIn();
-    //             }}
-    //           >
-    //             Login with Github
-    //           </Button>
-    //         </form>
-    //       </Form>
+              {/* Submit button will go here */}
+              <LoadingButton pending={form.formState.isSubmitting}>
+                Sign in
+              </LoadingButton>
+            </form>
+          </Form>
+          <Button
+            className="w-full mt-3"
+            onClick={async () => {
+              await signIn("github");
+            }}
+          >
+            Login with Github
+          </Button>
 
-    //       {/* <span className="text-sm text-gray-500 text-center block my-2">
-    //                     or
-    //                 </span>
-    //                 <form className="w-full" action={handleGithubSignin}>
-    //                     <Button
-    //                         variant="outline"
-    //                         className="w-full"
-    //                         type="submit"
-    //                     >
-    //                         <GitHubLogoIcon className="h-4 w-4 mr-2" />
-    //                         Sign in with GitHub
-    //                     </Button>
-    //                 </form> */}
-    //     </CardContent>
-    //   </Card>
-    // </div>
-    <div>
-      <Button
-        className="w-full"
-        onClick={async () => {
-          await signIn();
-        }}
-      >
-        Login
-      </Button>
+          <Button
+            className="w-full mt-3"
+            onClick={async () => {
+              await signIn("google");
+            }}
+          >
+            Login with Google
+          </Button>
+          {/* <span className="text-sm text-gray-500 text-center block my-2">
+                        or
+                    </span>
+                    <form className="w-full" action={handleGithubSignin}>
+                        <Button
+                            variant="outline"
+                            className="w-full"
+                            type="submit"
+                        >
+                            <GitHubLogoIcon className="h-4 w-4 mr-2" />
+                            Sign in with GitHub
+                        </Button>
+                    </form> */}
+        </CardContent>
+      </Card>
     </div>
   );
 }

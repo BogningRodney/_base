@@ -39,17 +39,17 @@ export default function SignUp() {
 
   const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     try {
-      // const result: ServerActionResponse = await handleSignUp(values);
-      // if (result.success) {
-      //     console.log("Account created successfully.");
-      //     const valuesForSignin = {
-      //         email: values.email,
-      //         password: values.password,
-      //     };
-      //     await handleCredentialsSignin(valuesForSignin);
-      // } else {
-      //     setGlobalError(result.message);
-      // }
+      const result: ServerActionResponse = await handleSignUp(values);
+      if (result.success) {
+        console.log("Account created successfully.");
+        const valuesForSignin = {
+          email: values.email,
+          password: values.password,
+        };
+        await handleCredentialsSignin(valuesForSignin);
+      } else {
+        setGlobalError(result.message);
+      }
     } catch (error) {
       setGlobalError("An unexpected error occurred. Please try again.");
     }
@@ -99,21 +99,11 @@ export default function SignUp() {
               <LoadingButton pending={form.formState.isSubmitting}>
                 Sign up
               </LoadingButton>
-              <Button>Sign up</Button>
+              {/* <Button>Sign up</Button> */}
             </form>
           </Form>
         </CardContent>
       </Card>
     </div>
-    // <div>
-    //   <Button
-    //     className="w-full"
-    //     onClick={async () => {
-    //       await signU();
-    //     }}
-    //   >
-    //     Login with Github
-    //   </Button>
-    // </div>
   );
 }
